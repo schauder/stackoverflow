@@ -15,7 +15,10 @@
  */
 package de.schauderhaft.mongoid;
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
 public class Fruit {
+	@Field("id")
 	String id;
 	String name;
 

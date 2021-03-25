@@ -3,13 +3,14 @@ package de.schauderhaft.mongoid;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import org.assertj.core.api.SoftAssertions;
 import org.bson.Document;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MongoDBContainer;
@@ -36,6 +37,9 @@ class MongoIdApplicationTests {
 	@Autowired
 	CustomerRepository customers;
 
+	@Autowired
+	MongoTemplate mongoTemplate;
+
 	@AfterEach
 	void cleanUp() {
 		customers.deleteAll();
@@ -46,7 +50,7 @@ class MongoIdApplicationTests {
 
 		Customer customer = new Customer();
 		customer.name = "Jens";
-		customer.fruits.add(new Fruit("pa","Pineapple"));
+		customer.fruits.add(new Fruit("pa", "Pineapple"));
 		customer.fruits.add(new Fruit("ba", "Banana"));
 
 		Customer saved = customers.save(customer);
@@ -56,27 +60,15 @@ class MongoIdApplicationTests {
 		Customer reloaded = customers.findById(customer.id).get();
 		assertThat(reloaded.fruits).extracting(f -> f.id).containsExactly("pa", "ba");
 
-		debugLog();
+		SoftAssertions.assertSoftly(softly ->
+				mongoTemplate.getCollection("customer").find()
+						.forEach(d -> {
+							List<Document> fruits = (List<Document>)d.get("fruits");
+							System.out.println(fruits.get(0));
+							softly.assertThat(fruits).describedAs("id of fruits in " + d.toJson() + " should not be null")
+									.extracting(f -> f.get("id"))
+									.doesNotContainNull();
+						})
+		);
 	}
-
-	private void debugLog() {
-		String connectionString = mongoDBContainer.getReplicaSetUrl();
-		try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-			listDbsAndCollections(mongoClient);
-
-			mongoClient.getDatabase("test").getCollection("customer").find().forEach(d -> System.out.println(d.toJson()));
-		}
-
-
-	}
-
-	private void listDbsAndCollections(MongoClient mongoClient) {
-		List<Document> databases = mongoClient.listDatabases().into(new ArrayList<>());
-		databases.forEach(db -> {
-			System.out.println("Database: " + db.toJson());
-			MongoDatabase mdb = mongoClient.getDatabase(db.get("name").toString());
-			mdb.listCollectionNames().forEach(System.out::println);
-		});
-	}
-
 }
