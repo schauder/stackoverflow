@@ -1,0 +1,8 @@
+== Stackoverflow Samples
+
+This is a collection of samples for reproducing issues raised on Stackoverflow.
+
+Each sample is a separate application, typically based on Spring Boot.
+They are organised into folders by persistence technology.
+
+Samples won't get updated to newer versions except when also the Stackoverflow answer gets updated.
