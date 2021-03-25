@@ -15,10 +15,14 @@
  */
 package de.schauderhaft.mongoid;
 
+import org.springframework.data.annotation.Id;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
+	@Id
 	String id;
 	String name;
-	List<Fruit> fruits;
+	List<Fruit> fruits = new ArrayList<>();
 }

@@ -18,4 +18,9 @@ package de.schauderhaft.mongoid;
 public class Fruit {
 	String id;
 	String name;
+
+	Fruit(String id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 }
