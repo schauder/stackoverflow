@@ -1,4 +1,11 @@
-https://stackoverflow.com/q/66787371/66686
+Stackoverflow Question https://stackoverflow.com/q/66787371/66686
 
+This is actually a duplicate of https://stackoverflow.com/q/29637813/66686
+
+The symptom: Documents in an array with a key `id` appear to be `null` in mapped objects (`Fruit`) in this example.
+
+The reason: A property `id` gets mapped to the special key `_id` by default.
+
+The fix: Use a `@Field` annotation to properly map the `id` property to the intended `id` key.
 
 
