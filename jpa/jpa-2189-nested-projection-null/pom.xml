@@ -9,12 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>jpa-2189-nested-projection-is-null</artifactId>
+	<artifactId>jpa-2189-nested-projection-null</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jpa-2189-nested-projection-is-null</name>
-	<description>https://github.com/spring-projects/spring-data-jpa/issues/2189</description>
+	<name>jpa-2189-nested-projection-null</name>
+	<description>Reproducer</description>
 	<properties>
 		<java.version>11</java.version>
+		<testcontainers.version>1.15.2</testcontainers.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -23,8 +24,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -32,7 +33,28 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>testcontainers-bom</artifactId>
+				<version>${testcontainers.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
