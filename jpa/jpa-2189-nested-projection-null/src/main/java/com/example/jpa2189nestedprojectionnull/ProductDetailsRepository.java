@@ -15,15 +15,11 @@
  */
 package com.example.jpa2189nestedprojectionnull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.data.repository.CrudRepository;
 
-@Entity
-public class Person {
-	@Id
-	@GeneratedValue
-	Long id;
+import java.util.Optional;
+import java.util.UUID;
 
-	String name;
+public interface ProductDetailsRepository extends CrudRepository<ProductDetails, UUID> {
+	<T> Optional<T> findById(UUID id, Class<T> clazz);
 }

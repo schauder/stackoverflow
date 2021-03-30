@@ -15,7 +15,23 @@
  */
 package com.example.jpa2189nestedprojectionnull;
 
-import org.springframework.data.repository.CrudRepository;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import java.io.Serializable;
+import java.util.UUID;
 
-public interface PersonRepository extends CrudRepository<Person, Long> {
+@Entity
+public class ProductDetails implements Serializable {
+	private static final long serialVersionUID = 3333L;
+
+	@Id
+	private UUID id;
+	@MapsId
+	@JoinColumn(name = "id")
+	@OneToOne
+	private Product product;
+	private Double costPrice;
 }
