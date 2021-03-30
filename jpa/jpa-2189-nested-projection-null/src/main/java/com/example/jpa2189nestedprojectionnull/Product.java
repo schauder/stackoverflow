@@ -15,14 +15,20 @@
  */
 package com.example.jpa2189nestedprojectionnull;
 
+import java.net.URI;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.net.URI;
-import java.util.List;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
 @Entity
+@EqualsAndHashCode(callSuper = false)
 @org.hibernate.annotations.TypeDef(name = "list-array", typeClass = com.vladmihalcea.hibernate.type.array.ListArrayType.class)
 public class Product extends AbstractAuditEntity {
 
