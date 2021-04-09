@@ -1,4 +1,4 @@
-package de.schauderhaft.mongoid;
+package de.schauderhaft.mongoinwithnull;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
