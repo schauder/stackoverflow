@@ -1,5 +1,11 @@
 package com.example.jpa2189nestedprojectionnull;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.jdbc.datasource.init.ScriptUtils.EOF_STATEMENT_SEPARATOR;
+
+import java.net.URI;
+import java.util.UUID;
+
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,23 +13,22 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.net.URI;
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.*;
-
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Testcontainers
+@Sql(scripts = {"classpath:scripts/schema.sql", "classpath:scripts/data.sql"}, //
+        config = @SqlConfig( //
+                separator = EOF_STATEMENT_SEPARATOR))
 class Jpa2189NestedProjectionNullApplicationTests {
 
-
 	@Container
-	static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>();
+	static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>("postgres:12-alpine");
 
 	@DynamicPropertySource
 	static void setProperties(DynamicPropertyRegistry registry) {
@@ -40,7 +45,7 @@ class Jpa2189NestedProjectionNullApplicationTests {
 	void fetchProjectedProductWithDetailsTest() {
 
 		var storeFrontProduct = detailsRepository.findById(
-				UUID.fromString("1fb9-e691-033d-4092-b326-99088d401ec9"), StoreAdminProduct.class);
+				UUID.fromString("1fb9e691-033d-4092-b326-99088d401ec9"), StoreAdminProduct.class);
 
 		assertThat(storeFrontProduct).isPresent()
 				.get(InstanceOfAssertFactories.type(StoreAdminProduct.class))
