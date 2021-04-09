@@ -18,8 +18,7 @@ package com.example.jpa2189nestedprojectionnull;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
-import java.util.UUID;
 
-public interface ProductDetailsRepository extends CrudRepository<ProductDetails, UUID> {
-	<T> Optional<T> findById(UUID id, Class<T> clazz);
+public interface ProductDetailsRepository extends CrudRepository<ProductDetails, String> {
+	<T> Optional<T> findById(String id, Class<T> clazz);
 }

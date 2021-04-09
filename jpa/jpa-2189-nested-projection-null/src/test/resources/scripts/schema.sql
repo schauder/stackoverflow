@@ -1,7 +1,5 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 CREATE TABLE product (
-	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	id varchar(100) NOT NULL,
 	"name" varchar(100) NOT NULL,
 	description text NULL,
 	featured_media varchar(200) NOT NULL,
@@ -17,7 +15,7 @@ CREATE TABLE product (
 );
 
 CREATE TABLE product_details (
-	id uuid NOT NULL,
+	id varchar(100) NOT NULL,
 	cost_price numeric NULL,
         CONSTRAINT product_detials_id_pk PRIMARY KEY (id)
 );

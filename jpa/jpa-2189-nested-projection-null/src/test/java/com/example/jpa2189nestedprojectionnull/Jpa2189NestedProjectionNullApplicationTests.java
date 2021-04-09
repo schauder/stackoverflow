@@ -1,11 +1,5 @@
 package com.example.jpa2189nestedprojectionnull;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.jdbc.datasource.init.ScriptUtils.EOF_STATEMENT_SEPARATOR;
-
-import java.net.URI;
-import java.util.UUID;
-
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +13,16 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+
+import static org.assertj.core.api.Assertions.*;
+import static org.springframework.jdbc.datasource.init.ScriptUtils.*;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Testcontainers
 @Sql(scripts = {"classpath:scripts/schema.sql", "classpath:scripts/data.sql"}, //
-        config = @SqlConfig( //
-                separator = EOF_STATEMENT_SEPARATOR))
+		config = @SqlConfig( //
+				separator = EOF_STATEMENT_SEPARATOR))
 class Jpa2189NestedProjectionNullApplicationTests {
 
 	@Container
@@ -44,14 +42,18 @@ class Jpa2189NestedProjectionNullApplicationTests {
 	@Test
 	void fetchProjectedProductWithDetailsTest() {
 
+		detailsRepository.findAll().forEach(System.out::println);
+
+		assertThat(detailsRepository.findById("1fb9e691033d4092b32699088d401ec9")).isPresent();
+
 		var storeFrontProduct = detailsRepository.findById(
-				UUID.fromString("1fb9e691-033d-4092-b326-99088d401ec9"), StoreAdminProduct.class);
+				"1fb9e691033d4092b32699088d401ec9", StoreAdminProduct.class);
 
 		assertThat(storeFrontProduct).isPresent()
 				.get(InstanceOfAssertFactories.type(StoreAdminProduct.class))
 				.hasFieldOrPropertyWithValue("costPrice", 350.0)
 				.extracting(StoreAdminProduct::getProduct).isNotNull() // Fails here
-				.hasFieldOrPropertyWithValue("featuredMedia", URI.create("/files/products/jordans.jpeg"));
+				.hasFieldOrPropertyWithValue("featuredMedia", "/files/products/jordans.jpeg");
 	}
 
 

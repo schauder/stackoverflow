@@ -15,8 +15,6 @@
  */
 package com.example.jpa2189nestedprojectionnull;
 
-import java.net.URI;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,11 +34,8 @@ public class Product extends AbstractAuditEntity {
 	private String name;
 	@Column(columnDefinition = "text")
 	private String description;
-	private URI featuredMedia;
+	private String featuredMedia;
 	private Double price;
 	@Enumerated(EnumType.STRING)
 	private ProductStatus status = ProductStatus.DRAFT;
-	@org.hibernate.annotations.Type(type = "list-array")
-	@Column(columnDefinition = "varchar[]")
-	private List<String> tags;
 }

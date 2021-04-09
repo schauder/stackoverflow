@@ -15,16 +15,14 @@
  */
 package com.example.jpa2189nestedprojectionnull;
 
-import java.io.Serializable;
-import java.util.UUID;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-
-import lombok.Data;
+import java.io.Serializable;
 
 @Data
 @Entity
@@ -32,7 +30,7 @@ public class ProductDetails implements Serializable {
 	private static final long serialVersionUID = 3333L;
 
 	@Id
-	private UUID id;
+	private String id;
 	@MapsId
 	@JoinColumn(name = "id")
 	@OneToOne

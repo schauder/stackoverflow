@@ -15,16 +15,16 @@
  */
 package com.example.jpa2189nestedprojectionnull;
 
-import java.net.URI;
-import java.util.UUID;
-
 public interface StoreAdminProduct {
-	UUID getId();
+	String getId();
+
 	Double getCostPrice();
+
 	ProductView getProduct();
 
 	static interface ProductView {
 		String getName();
-		URI getFeaturedMedia();
+
+		String getFeaturedMedia();
 	}
 }

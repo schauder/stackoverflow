@@ -13,15 +13,14 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.Optional;
-import java.util.UUID;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractAuditEntity implements Auditable<String, UUID, OffsetDateTime>, Serializable {
+public abstract class AbstractAuditEntity implements Auditable<String, String, OffsetDateTime>, Serializable {
 	private static final long serialVersionUID = 1111111L;
 	@Id
 	@GeneratedValue
-	private UUID id;
+	private String id;
 	private OffsetDateTime createdDate;
 	private OffsetDateTime lastModifiedDate;
 	private String createdBy;
@@ -30,11 +29,11 @@ public abstract class AbstractAuditEntity implements Auditable<String, UUID, Off
 	private boolean isNew = true;
 
 	@Override
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
