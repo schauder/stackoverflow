@@ -1,0 +1,4 @@
+Stackoverflow Question https://stackoverflow.com/q/67017851/66686
+
+How to query for `a = <valueA> and (b = <valueB> or b is null)`
+
