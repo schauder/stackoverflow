@@ -1,0 +1,3 @@
+== Reproducer for problems with nested projections
+
+Issue: https://github.com/spring-projects/spring-data-jpa/issues/2189
