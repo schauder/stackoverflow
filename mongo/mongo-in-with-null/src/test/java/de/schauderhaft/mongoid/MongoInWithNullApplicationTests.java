@@ -65,13 +65,21 @@ class MongoInWithNullApplicationTests {
 	}
 
 	@Test
+	void findByFirstNameAndLastNamesWithNull() {
+		assertThat(customers.findByFirstNameAndLastNameIn("Jens", asList("Schauder", null)))
+				.containsExactlyInAnyOrder(jens, jensSchauder);
+	}
+
+	@Test
 	void findByFirstNameAndLastNameOrNull() {
-		assertThat(customers.findByFirstNameAndLastNameOrNull("Jens", asList("Schauder", null))).containsExactlyInAnyOrder(jens, jensSchauder);
+		assertThat(customers.findByFirstNameAndLastNameOrNull("Jens", "Schauder"))
+				.containsExactlyInAnyOrder(jens, jensSchauder);
 	}
 
 	@Test
 	void findByFirstNameInWithNull() {
-		assertThat(customers.findByFirstNameIn(asList("Jens", null))).containsExactlyInAnyOrder(jens, jensSchauder, schauder, jensMeier, meier);
+		assertThat(customers.findByFirstNameIn(asList("Jens", null)))
+				.containsExactlyInAnyOrder(jens, jensSchauder, schauder, jensMeier, meier);
 	}
 
 	private Customer createCustomer(String firstName, String lastName) {

@@ -23,7 +23,10 @@ import java.util.List;
 public interface CustomerRepository extends CrudRepository<Customer, String> {
 
 	@Query("{firstName : ?0, lastName : {$in: ?1}}")
-	List<Customer> findByFirstNameAndLastNameOrNull(String first, List<String> lasts);
+	List<Customer> findByFirstNameAndLastNameIn(String first, List<String> lasts);
+
+	@Query("{firstName : ?0, lastName : {$in: [?1, null]}}")
+	List<Customer> findByFirstNameAndLastNameOrNull(String first, String last);
 
 	@Query("{firstName : {$in: ?0}}")
 	List<Customer> findByFirstNameIn(List<String> firsts);
