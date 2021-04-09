@@ -1,6 +1,7 @@
 package com.example.jpa2189nestedprojectionnull;
 
 import org.assertj.core.api.InstanceOfAssertFactories;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -70,15 +71,17 @@ class Jpa2189NestedProjectionNullApplicationTests {
 
 	@Test
 	void testCriteriaQuery() {
+
 		CriteriaQuery<Object> query = em.getCriteriaBuilder().createQuery(Object.class);
 		Root<ProductDetails> root = query.from(ProductDetails.class);
 		query = query.multiselect(root.get("id"), root.get("costPrice"), root.get("product"));
 
 		List<Object> resultList = em.createQuery(query).getResultList();
-		resultList.forEach(o -> {
+
+		SoftAssertions.assertSoftly(softly -> resultList.forEach(o -> {
 			assertThat(o).isInstanceOf(Object[].class);
-			assertThat(((Object[]) o)[2]).isNull(); // <-- I would expect this to fail, but it doesn't
-		});
+			softly.assertThat(((Object[]) o)[2]).isNotNull();
+		}));
 	}
 
 
