@@ -1,0 +1,5 @@
+Stackoverflow Question https://stackoverflow.com/q/67480182/66686
+
+The problem: Have a repository method that has an annotated query based on n parameters where at least some of these parameters might be `null` or empty and then should be ignored.
+
+
