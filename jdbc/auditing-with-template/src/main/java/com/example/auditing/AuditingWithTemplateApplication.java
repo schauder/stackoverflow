@@ -21,21 +21,28 @@ public class AuditingWithTemplateApplication {
 	@Bean
 	RelationalAuditingCallback isNewAwareAuditingHandler(JdbcMappingContext context) {
 
-		return new RelationalAuditingCallback(new IsNewAwareAuditingHandler(PersistentEntities.of(context)) {
-			@Override
-			public Object markAudited(Object source) {
+		return new RelationalAuditingCallback(new CustomAuditingHandler(context));
+	}
 
-				if (!(source instanceof Product)) {
-					return source;
-				}
+	private static class CustomAuditingHandler extends IsNewAwareAuditingHandler {
 
-				Product product = (Product) source;
-				if (product.createdDate == null) {
-					product.createdDate = Instant.now();
-				}
+		public CustomAuditingHandler(JdbcMappingContext context) {
+			super(PersistentEntities.of(context));
+		}
 
+		@Override
+		public Object markAudited(Object source) {
+
+			if (!(source instanceof Product)) {
 				return source;
 			}
-		});
+
+			Product product = (Product) source;
+			if (product.createdDate == null) {
+				product.createdDate = Instant.now();
+			}
+
+			return source;
+		}
 	}
 }
