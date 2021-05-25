@@ -1,0 +1,3 @@
+== How to write a custom AuditingCallback to handle custom id generation schema.
+
+See https://github.com/spring-projects/spring-data-jdbc/issues/982
