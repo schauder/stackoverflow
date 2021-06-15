@@ -26,6 +26,16 @@ class ConstructorExpressionWithNestedReferenceApplicationTests {
 
 	@Test
 	@Transactional
+	void testDtosInnerJoin() {
+
+		createEnts();
+
+		assertThat(ents.findDtoInnerJoin()).extracting(Dto::toString).containsExactly("ents name - parents name");
+
+	}
+
+	@Test
+	@Transactional
 	void testEntities() {
 
 		createEnts();

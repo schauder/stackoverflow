@@ -22,10 +22,14 @@ import java.util.List;
 
 public interface SomeEntityRepository extends JpaRepository<SomeEntity, Long> {
 
-	@Query("select new de.schauderhaft.de.constructorexpressionwithnestedreference.Dto(e.name, e.parent.name) " +
+	@Query("select new de.schauderhaft.de.constructorexpressionwithnestedreference.Dto(e.name, p.name) " +
 			"from SomeEntity e " +
 			"left join e.parent p")
 	List<Dto> findDto();
+
+	@Query("select new de.schauderhaft.de.constructorexpressionwithnestedreference.Dto(e.name, e.parent.name) " +
+			"from SomeEntity e")
+	List<Dto> findDtoInnerJoin();
 
 	@Query("select e from SomeEntity e")
 	List<SomeEntity> findEntities();
