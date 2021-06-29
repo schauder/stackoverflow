@@ -1,0 +1,6 @@
+== Testing to map Json data.
+
+
+This is not complete and working, because it turned out the question asked could be answered much simpler.
+
+Stackoverflow Question: https://stackoverflow.com/q/68118275/66686
