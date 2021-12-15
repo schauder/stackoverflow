@@ -30,6 +30,7 @@ class AsyncTask {
 	Long id;
 	String name;
 
+	@MappedCollection(idColumn = "FROM_ID")
 	Set<DependentTask> dependents = new HashSet<>();
 
 	AsyncTask(String name) {

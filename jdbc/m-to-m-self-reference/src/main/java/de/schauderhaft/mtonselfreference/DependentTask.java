@@ -15,13 +15,16 @@
  */
 package de.schauderhaft.mtonselfreference;
 
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table
 class DependentTask {
-	Long id; // this is the Id of the dependent task, note that it is not marked with `@Id`
+	@Column("TO_ID")
+	AggregateReference<AsyncTask, Long> id; // this is the Id of the dependent task, note that it is not marked with `@Id`
 
 	DependentTask(Long id) {
-		this.id = id;
+		this.id = AggregateReference.to(id);
 	}
 }
