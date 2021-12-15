@@ -23,5 +23,13 @@ import java.util.Optional;
 
 public interface MainEntityRepository extends CrudRepository<MainEntity, Long> {
 	@Query("SELECT * FROM main_entities WHERE another_id = :anotherId")
-	Optional<MainEntity> findByAnotherId(@Param("anotherId") String anotherId);
+	Optional<MainEntity> findWithOutJoinByAnotherId(@Param("anotherId") String anotherId);
+
+	@Query("SELECT M.ID, M.ANOTHER_ID, S.ID AS SECONDENTITY_ID, S.MAIN_ENTITY_ID AS SECONDENTITY_MAIN_ENTITY_ID " +
+			"FROM MAIN_ENTITIES M " +
+			"JOIN SECOND_ENTITIES S " +
+			" ON M.ID = S.MAIN_ENTITY_ID " +
+			"WHERE ANOTHER_ID = :anotherId")
+	Optional<MainEntity> findWithJoinByAnotherId(String anotherId);
+
 }
