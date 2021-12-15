@@ -1,0 +1,3 @@
+== Specify a custom query with a 1:1 relationship.
+
+Stackoverflow Question: https://stackoverflow.com/questions/70331928/spring-data-jdbc-mapping-not-working-if-use-not-primary-key
