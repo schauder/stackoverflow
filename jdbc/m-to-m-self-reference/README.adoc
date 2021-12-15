@@ -1,0 +1,3 @@
+== How to implement an M:N self reference.
+
+Stackoverflow Question: https://stackoverflow.com/questions/70302812/spring-boot-data-jdbc-implement-many-to-many-relationship-with-same-entity
