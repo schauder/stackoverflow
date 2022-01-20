@@ -1,0 +1,3 @@
+== How to implement M:M with a collection referencing the brigde table.
+
+Stackoverflow Question: https://stackoverflow.com/q/70674008/66686
