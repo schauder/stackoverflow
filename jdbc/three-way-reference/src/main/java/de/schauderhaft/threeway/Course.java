@@ -16,23 +16,16 @@
 package de.schauderhaft.threeway;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
 
-import java.util.HashSet;
-import java.util.Set;
+public class Course {
 
-public class Student {
+	@Id
+	Long courseId;
+	String courseName;
 
-		@Id
-		Long studentId;
-		String studentName;
-
-		@MappedCollection(idColumn = "STUDENT_ID", keyColumn = "COURSE_ID")
-		Set<CourseRef> courses = new HashSet<>();
-
-	public void add(Course course) {
-		final CourseRef ref = new CourseRef();
-		ref.courseId = course.courseId;
-		courses.add(ref);
+	static Course create(String name) {
+		Course course = new Course();
+		course.courseName = "Physics";
+		return course;
 	}
 }

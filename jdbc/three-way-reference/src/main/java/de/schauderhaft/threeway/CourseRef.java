@@ -15,19 +15,16 @@
  */
 package de.schauderhaft.threeway;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
 
-@Table("student_course")
+@Table("STUDENT_COURSE")
 public class CourseRef {
 
- @Id
- Long studentCourseId;
- Long courseId;
+	Long courseId;
 
- @MappedCollection(idColumn = "student_course_id", keyColumn = "test_score_id")
- List<TestScore> testScores;
+	@MappedCollection(keyColumn = "INDEX")
+	List<TestScore> testScores;
 }

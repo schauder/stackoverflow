@@ -15,24 +15,7 @@
  */
 package de.schauderhaft.threeway;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class Student {
-
-		@Id
-		Long studentId;
-		String studentName;
-
-		@MappedCollection(idColumn = "STUDENT_ID", keyColumn = "COURSE_ID")
-		Set<CourseRef> courses = new HashSet<>();
-
-	public void add(Course course) {
-		final CourseRef ref = new CourseRef();
-		ref.courseId = course.courseId;
-		courses.add(ref);
-	}
+interface CourseRepository extends CrudRepository<Course, Long> {
 }
