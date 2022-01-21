@@ -25,7 +25,7 @@ import java.util.List;
 public class CourseRef {
 
 	@Id // work around for issue
-	Long studentId;
+	Long Id;
 
 	Long courseId;
 
