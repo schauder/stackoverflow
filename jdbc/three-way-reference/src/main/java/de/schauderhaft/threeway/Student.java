@@ -16,6 +16,7 @@
 package de.schauderhaft.threeway;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.util.HashSet;
@@ -42,13 +43,13 @@ class Student {
 
 	void addCourse(Course course) {
 		final CourseRef ref = new CourseRef();
-		ref.courseId = course.id;
+		ref.courseId = AggregateReference.to(course.id);
 		courses.add(ref);
 	}
 
 	public void addScore(Course course, int score) {
 		courses.stream()
-				.filter(c -> c.courseId.equals(course.id))
+				.filter(c -> c.courseId.getId().equals(course.id))
 				.findFirst()
 				.orElseThrow()
 				.testScores.add(TestScore.create(90));

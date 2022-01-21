@@ -16,6 +16,7 @@
 package de.schauderhaft.threeway;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -27,7 +28,7 @@ public class CourseRef {
 	@Id // work around for issue
 	Long Id;
 
-	Long courseId;
+	AggregateReference<Course,Long> courseId;
 
 	@MappedCollection(idColumn = "STUDENT_COURSE_ID", keyColumn = "INDEX")
 	List<TestScore> testScores;
