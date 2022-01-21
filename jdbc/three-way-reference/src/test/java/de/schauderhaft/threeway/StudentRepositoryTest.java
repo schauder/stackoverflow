@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJdbcTest
@@ -19,39 +17,34 @@ class StudentRepositoryTest {
 	CourseRepository courses;
 
 	Student jens = null;
-	Course math;
 
 	@BeforeEach
 	void setup() {
 
-		final Course physics = courses.save(Course.create("Physics"));
-		math = courses.save(Course.create("Math"));
-		final Course informatics = courses.save(Course.create("Informatics"));
+		Course physics = courses.save(Course.create("Physics"));
+		Course math = courses.save(Course.create("Math"));
+		Course informatics = courses.save(Course.create("Informatics"));
 
-		jens = new Student();
-		jens.studentName = "Jens";
+		jens = Student.create("Jens");
 
-		jens.add(physics);
-		jens.add(math);
-		jens.add(informatics);
-		students.save(jens);
+		jens.addCourse(physics);
+		jens.addCourse(math);
+		jens.addCourse(informatics);
+
+		jens = students.save(jens);
 
 	}
 
 	@Test
 	void testAddTestScore() {
 
-		Student student = students.findById(jens.studentId).get();
+		Student student = students.findById(jens.id).orElseThrow();
 		assertNotNull(student);
+		Course math = courses.findByName("Math");
+		assertNotNull(math);
 
-		Set<CourseRef> courses = student.courses;
-		CourseRef course = courses.stream().filter(c -> c.courseId == math.courseId).findFirst().orElse(null);
-		assertNotNull(course);
+		student.addScore(math, 90);
 
-		courses.remove(course);
-		course.testScores.add(TestScore.create(90));
-		courses.add(course);
-		student.courses = courses;
 		students.save(student);
 	}
 

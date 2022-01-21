@@ -16,16 +16,17 @@
 package de.schauderhaft.threeway;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
 public class Course {
 
 	@Id
-	Long courseId;
-	String courseName;
+	Long id;
+	String name;
 
 	static Course create(String name) {
 		Course course = new Course();
-		course.courseName = "Physics";
+		course.name = name;
 		return course;
 	}
 }

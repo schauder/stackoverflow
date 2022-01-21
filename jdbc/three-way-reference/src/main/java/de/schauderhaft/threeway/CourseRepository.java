@@ -18,4 +18,5 @@ package de.schauderhaft.threeway;
 import org.springframework.data.repository.CrudRepository;
 
 interface CourseRepository extends CrudRepository<Course, Long> {
+	Course findByName(String name);
 }

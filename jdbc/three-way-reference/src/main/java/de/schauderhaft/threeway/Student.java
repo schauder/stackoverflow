@@ -21,18 +21,36 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Student {
+class Student {
 
 		@Id
-		Long studentId;
-		String studentName;
+		final Long id;
+		String name;
 
 		@MappedCollection(idColumn = "STUDENT_ID", keyColumn = "COURSE_ID")
 		Set<CourseRef> courses = new HashSet<>();
 
-	public void add(Course course) {
+	Student(Long id) {
+		this.id = id;
+	}
+
+	public static Student create(String name) {
+		final Student student = new Student(null);
+		student.name = name;
+		return student;
+	}
+
+	void addCourse(Course course) {
 		final CourseRef ref = new CourseRef();
-		ref.courseId = course.courseId;
+		ref.courseId = course.id;
 		courses.add(ref);
+	}
+
+	public void addScore(Course course, int score) {
+		courses.stream()
+				.filter(c -> c.courseId.equals(course.id))
+				.findFirst()
+				.orElseThrow()
+				.testScores.add(TestScore.create(90));
 	}
 }

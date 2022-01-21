@@ -29,6 +29,6 @@ public class CourseRef {
 
 	Long courseId;
 
-	@MappedCollection(keyColumn = "INDEX")
+	@MappedCollection(idColumn = "STUDENT_COURSE_ID", keyColumn = "INDEX")
 	List<TestScore> testScores;
 }
