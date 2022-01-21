@@ -19,8 +19,6 @@ import org.springframework.data.annotation.Id;
 
 public class TestScore {
 
- @Id
- private Long testScoreId;
  private Integer value;
 
 	public static TestScore create(int value) {

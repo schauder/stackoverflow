@@ -15,6 +15,7 @@
  */
 package de.schauderhaft.threeway;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -22,6 +23,9 @@ import java.util.List;
 
 @Table("STUDENT_COURSE")
 public class CourseRef {
+
+	@Id // work around for issue
+	Long studentId;
 
 	Long courseId;
 
