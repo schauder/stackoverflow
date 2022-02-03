@@ -23,9 +23,9 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.List;
 
 @Table("STUDENT_COURSE")
-public class CourseRef {
+class CourseRef {
 
-	@Id // work around for issue
+	@Id // work around for issue https://github.com/spring-projects/spring-data-jdbc/issues/1139
 	Long Id;
 
 	AggregateReference<Course,Long> courseId;

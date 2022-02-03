@@ -35,18 +35,29 @@ class Student {
 		this.id = id;
 	}
 
+	/**
+	 * quality of life method to create students by name.
+	 */
 	public static Student create(String name) {
 		final Student student = new Student(null);
 		student.name = name;
 		return student;
 	}
 
+	/**
+	 * The aggregate root should take care of whatever logic is necessary to add a course.
+	 */
 	void addCourse(Course course) {
 		final CourseRef ref = new CourseRef();
 		ref.courseId = AggregateReference.to(course.id);
 		courses.add(ref);
 	}
 
+	/**
+	 * The aggregate root should take care of whatever logic is necessary to add a testscore.
+	 * @param course
+	 * @param score
+	 */
 	public void addScore(Course course, int score) {
 		courses.stream()
 				.filter(c -> c.courseId.getId().equals(course.id))

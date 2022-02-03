@@ -15,11 +15,9 @@
  */
 package de.schauderhaft.threeway;
 
-import org.springframework.data.annotation.Id;
+class TestScore {
 
-public class TestScore {
-
- private Integer value;
+	private Integer value;
 
 	public static TestScore create(int value) {
 		final TestScore testScore = new TestScore();
