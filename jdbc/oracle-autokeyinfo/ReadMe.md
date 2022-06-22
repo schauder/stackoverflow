@@ -1,5 +1,14 @@
 ## Reproducer for the "autoKeyInfo is not initialized" problem.
 
+---
+**NOTE**
+
+Oracle recommends the LTS version 19.15.0.0.1 for now.
+An issue was raised with Oracle, unfortunately the issue tracker is not publicly available.
+
+---
+
+
 ### Description
 
 When trying to perform batch inserts in a table with generated id the oracle JDBC driver throws `java.lang.AssertionError: autoKeyInfo is not initialized`.
