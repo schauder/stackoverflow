@@ -1,5 +1,7 @@
 ## Reproducer for the "autoKeyInfo is not initialized" problem.
 
+[Stackoverflow question](https://stackoverflow.com/q/72717261/66686).
+
 ---
 **NOTE**
 
