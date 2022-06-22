@@ -1,4 +1,4 @@
-/*
+package de.schauderhaft.jdbc.oracle.autokeyinfo;/*
  * Copyright 2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,10 +25,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.testcontainers.containers.OracleContainer;
 
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.HashMap;
 
-class AutoKeyInfoTest {
+public class AutoKeyInfoTest {
 	static final OracleDataSource ds;
 
 	static {
@@ -52,21 +51,15 @@ class AutoKeyInfoTest {
 	@Test
 	void test() throws SQLException {
 
+		final String tableName = "MyTable";
+
 		final JdbcTemplate jdbc = new JdbcTemplate(ds);
 
-		jdbc.execute("""
-				create table "MyTable" (
-				    id  NUMBER GENERATED ALWAYS AS IDENTITY,
-				    name varchar2(200)
-				)
-				"""
+		jdbc.execute("create table "+tableName+" ( "+
+				    "id  NUMBER GENERATED ALWAYS AS IDENTITY, "+
+				    "name varchar2(200) "+
+				")"
 		);
-
-
-		new PreparedStatementCreatorFactory("""
-				insert into "MyTable" values (?)
-				""");
-
 
 		final BatchJdbcOperations batch = new BatchJdbcOperations(jdbc);
 
@@ -76,14 +69,10 @@ class AutoKeyInfoTest {
 
 
 		final SqlParameterSource[] args = new SqlParameterSource[2];
-		args[0] =new MapSqlParameterSource("name", "test1");
-		args[1] =new MapSqlParameterSource("name", "test2");
+		args[0] = new MapSqlParameterSource("name", "test1");
+		args[1] = new MapSqlParameterSource("name", "test2");
 
-		batch.batchUpdate("""
-				insert into "MyTable" values (:name)
-				""", args, keyHolder, new String[]{"ID"});
-
-
+		batch.batchUpdate("insert into "+ tableName +" values (:name)", args, keyHolder, new String[]{"ID"});
 
 	}
 }
