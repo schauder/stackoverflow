@@ -18,7 +18,6 @@ import oracle.jdbc.pool.OracleDataSource;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -55,9 +54,9 @@ public class AutoKeyInfoTest {
 
 		final JdbcTemplate jdbc = new JdbcTemplate(ds);
 
-		jdbc.execute("create table "+tableName+" ( "+
-				    "id  NUMBER GENERATED ALWAYS AS IDENTITY, "+
-				    "name varchar2(200) "+
+		jdbc.execute("create table " + tableName + " ( " +
+				"id  NUMBER GENERATED ALWAYS AS IDENTITY, " +
+				"name varchar2(200) " +
 				")"
 		);
 
@@ -72,7 +71,7 @@ public class AutoKeyInfoTest {
 		args[0] = new MapSqlParameterSource("name", "test1");
 		args[1] = new MapSqlParameterSource("name", "test2");
 
-		batch.batchUpdate("insert into "+ tableName +" values (:name)", args, keyHolder, new String[]{"ID"});
+		batch.batchUpdate("insert into " + tableName + "(name) values (:name)", args, keyHolder, new String[]{"ID"});
 
 	}
 }
