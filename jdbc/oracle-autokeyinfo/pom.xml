@@ -12,6 +12,7 @@
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
+		<ojdbc.version>21.6.0.0.1</ojdbc.version>
 	</properties>
 
 	<dependencies>
@@ -50,7 +51,7 @@
 				<dependency>
 					<groupId>com.oracle.database.jdbc</groupId>
 					<artifactId>ojdbc11</artifactId>
-					<version>21.5.0.0</version>
+					<version>${ojdbc.version}</version>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -65,7 +66,7 @@
 				<dependency>
 					<groupId>com.oracle.database.jdbc</groupId>
 					<artifactId>ojdbc8</artifactId>
-					<version>19.6.0.0</version>
+					<version>${ojdbc.version}</version>
 				</dependency>
 			</dependencies>
 		</profile>
