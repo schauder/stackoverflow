@@ -1,0 +1,6 @@
+Example project demonstrating use of `contains` in Spring Data JPA.
+
+Inspired by https://stackoverflow.com/q/73165929/66686
+
+But it surfaced a bug and became a reproducer for:
+https://github.com/spring-projects/spring-data-jpa/issues/2607
