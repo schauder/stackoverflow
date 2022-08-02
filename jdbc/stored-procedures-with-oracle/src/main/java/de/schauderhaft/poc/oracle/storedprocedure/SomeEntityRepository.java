@@ -15,7 +15,12 @@
  */
 package de.schauderhaft.poc.oracle.storedprocedure;
 
+import org.springframework.data.jdbc.repository.query.Modifying;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 
 interface SomeEntityRepository extends CrudRepository<SomeEntity, Long> {
+	@Modifying
+	@Query("{call no_in_no_out_no_return()}")
+	void noInNoOutNoReturn();
 }

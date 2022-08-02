@@ -50,11 +50,8 @@ public class Application {
 
 		final ResourceDatabasePopulator populator = new ResourceDatabasePopulator(new ClassPathResource("schema.sql"));
 		populator.setIgnoreFailedDrops(true);
-		try {
-			populator.populate(dataSource.getConnection());
-		} catch (SQLException e) {
-			throw new RuntimeException("Failed to initialize database", e);
-		}
+		populator.setSeparator("#");
+		populator.execute(dataSource);
 
 		return dataSource;
 	}

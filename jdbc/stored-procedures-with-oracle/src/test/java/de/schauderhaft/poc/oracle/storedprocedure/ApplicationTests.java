@@ -10,6 +10,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.SoftAssertions.*;
 
 @SpringBootTest
@@ -17,20 +18,32 @@ import static org.assertj.core.api.SoftAssertions.*;
 class ApplicationTests {
 
 	@Autowired
-	SomeEntityRepository classes;
+	SomeEntityRepository repository;
 
 	@Autowired
 	JdbcTemplate jdbc;
 
 	@Test
 	void testSchema() {
+		printTables();
+
+		final List<Map<String, Object>> lines = jdbc.queryForList("""
+				SELECT  TEXT
+				  FROM  USER_ERRORS
+				  WHERE NAME = 'NO_IN_NO_OUT_NO_RETURN'
+				    AND TYPE = 'PROCEDURE'
+				  ORDER BY LINE
+				""");
+
+		lines.forEach(line -> System.out.println(line.get("TEXT")));
+	}
+
+	private void printTables() {
 		final List<Map<String, Object>> tables = jdbc.queryForList("""
 				SELECT  TABLE_NAME as table_name FROM USER_TABLES
 				""");
 
 		tables.forEach(row -> {
-//			row.forEach((n, v) -> System.out.println(n + " - " + v));
-//			System.out.println();
 			System.out.println(row.get("TABLE_NAME"));
 		});
 	}
@@ -38,7 +51,7 @@ class ApplicationTests {
 
 	@Test
 	void test() {
-		SomeEntity saved = classes.save(new SomeEntity(null, "test 1"));
+		SomeEntity saved = repository.save(new SomeEntity(null, "test 1"));
 
 		assertSoftly(softly -> {
 			softly.assertThat(saved).isNotNull();
@@ -47,4 +60,13 @@ class ApplicationTests {
 		});
 	}
 
+
+	@Test
+	void testNoInNoOutNoReturn() {
+		repository.noInNoOutNoReturn();
+
+		final Iterable<SomeEntity> entities = repository.findAll();
+
+		assertThat(entities).extracting(e -> e.name).contains("NO_IN_NO_OUT_NO_RETURN");
+	}
 }
