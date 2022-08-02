@@ -23,4 +23,7 @@ interface SomeEntityRepository extends CrudRepository<SomeEntity, Long> {
 	@Modifying
 	@Query("{call no_in_no_out_no_return()}")
 	void noInNoOutNoReturn();
+
+	@Query("select simple_value_out() from dual")
+	int simpleValueOut();
 }

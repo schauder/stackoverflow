@@ -27,12 +27,14 @@ class ApplicationTests {
 	void testSchema() {
 		printTables();
 
+		printCompileErrors();
+	}
+
+	private void printCompileErrors() {
 		final List<Map<String, Object>> lines = jdbc.queryForList("""
 				SELECT  TEXT
 				  FROM  USER_ERRORS
-				  WHERE NAME = 'NO_IN_NO_OUT_NO_RETURN'
-				    AND TYPE = 'PROCEDURE'
-				  ORDER BY LINE
+				  ORDER BY NAME, LINE
 				""");
 
 		lines.forEach(line -> System.out.println(line.get("TEXT")));
@@ -63,10 +65,17 @@ class ApplicationTests {
 
 	@Test
 	void testNoInNoOutNoReturn() {
+
 		repository.noInNoOutNoReturn();
 
 		final Iterable<SomeEntity> entities = repository.findAll();
 
 		assertThat(entities).extracting(e -> e.name).contains("NO_IN_NO_OUT_NO_RETURN");
+	}
+
+	@Test
+	void testSimpleValueOut() {
+
+		assertThat(repository.simpleValueOut()).isEqualTo(23);
 	}
 }
