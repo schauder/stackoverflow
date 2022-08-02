@@ -1,5 +1,3 @@
-Trying to reproduce problems with auditing and records ins Spring Data JDBC.
+Call Oracle Stored procedures using Spring Data JDBC.
 
-See https://github.com/spring-projects/spring-data-jdbc/issues/1152
-
-Failing to reproduce any problem.
+The answer https://stackoverflow.com/a/73203171/66686 is based on this.
