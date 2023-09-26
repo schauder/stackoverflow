@@ -1,0 +1,7 @@
+This tries to reproduce the problems mentioned in
+https://stackoverflow.com/questions/77174825/like-ignore-case-in-spring-data-jdbc-with-criteria
+
+Symptoms are that the pageable of a `Query` get ignored by the `JdbcAggregateTemplate` in combination with a like-ignore-case.
+
+After some experimentation it seems this is a bug of `JdbcAggregateTemplate.findAll(Query, Class)`.
+If the `Pageable` passed as a separate argument using `JdbcAggregateTemplate.findAll(Query, Class, Pageable)` everything seems to work fine.
