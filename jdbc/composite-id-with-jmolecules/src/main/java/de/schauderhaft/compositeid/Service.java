@@ -1,10 +1,8 @@
 package de.schauderhaft.compositeid;
 
-import org.jmolecules.ddd.annotation.AggregateRoot;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 
-@AggregateRoot
 public class Service {
 
 	@Id
