@@ -9,7 +9,7 @@ create table book_copy (
 
 create table book_copy_quality_control (
     book_id bigint,
-    copy_number int,
-    book_copy_key int,
+    copy_number int, -- renamed key column of Book.copies
+    book_copy_key int, -- default named key column of Book.copies.qualityControls
     quality_control_number int
 );
