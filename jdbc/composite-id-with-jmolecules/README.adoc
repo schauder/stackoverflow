@@ -1,0 +1,7 @@
+== Reproducer for https://stackoverflow.com/questions/79902309/spring-data-jdbc-with-composite-id
+
+The issue seems to be cause by JMolecules which considers the composite id a simple property.
+Removing JMolecules fixes the issue.
+
+Reproducer of failure: main branch
+Reproducer of fix by removing JMolecules: Branch jmolecule-removed.
